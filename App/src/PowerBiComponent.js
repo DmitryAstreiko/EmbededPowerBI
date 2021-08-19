@@ -10,8 +10,6 @@ export default class PowerBiComponent extends Component {
     render() {
         return (
             <div>
-                <div style={{ height: "20px", }}></div>
-                <h1 style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}  >Second implementation</h1>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
                     <PowerBIEmbed
                         embedConfig={{
