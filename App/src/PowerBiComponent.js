@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { PowerBIEmbed } from 'powerbi-client-react';
 import { models } from 'powerbi-client';
 //import "./App.css";
-import './MainPage.module.scss';
+
 
 //https://docs.microsoft.com/en-us/javascript/api/overview/powerbi/configure-report-settings
 
