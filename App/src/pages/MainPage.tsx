@@ -27,8 +27,7 @@ export class MainPage extends React.Component {
                     </div>
                 </div>
 
-                {/*<PowerBiWrapper/>*/}  
-                <PowerBiShow />              
+                <PowerBiWrapper/>  
                 
                 {/*<h1 style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>Reports</h1>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>

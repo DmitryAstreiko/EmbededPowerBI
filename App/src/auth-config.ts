@@ -1,4 +1,5 @@
-import { PublicClientApplication, AuthenticationResult, Configuration } from '@azure/msal-browser';
+import { PublicClientApplication, Configuration } from '@azure/msal-browser';
+//import { AuthenticationResult } from '@azure/msal-browser';
  
 enum MsalConfig {
   ClientId = 'c148e280-579c-4e16-8e74-6ef7d818d097',
