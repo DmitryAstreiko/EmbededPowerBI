@@ -1,10 +1,11 @@
 import { useAccount, useMsal } from '@azure/msal-react';
 import { authenticationParameters } from './auth-config';
 import { InteractionRequiredAuthError } from '@azure/msal-browser';
+import PowerBiShow from './PowerBiShow';
  
 function PowerBi() {
   /// ... Other code
-  const { instance, accounts, inProgress } = useMsal();
+{/*}  const { instance, accounts, inProgress } = useMsal();
   const account = useAccount(accounts[0] || {});
  
   useEffect(() => {
@@ -35,6 +36,12 @@ function PowerBi() {
       instance.loginRedirect(authenticationParameters);
     }
   }, [inProgress, accounts, instance]);
+*/}
  
   // ...Return PowerBi embed
+  <return>
+    <PowerBiShow />
+  </return>
 }
+
+export default PowerBi
