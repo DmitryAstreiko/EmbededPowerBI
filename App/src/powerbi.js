@@ -2,13 +2,15 @@ import { useAccount, useMsal } from '@azure/msal-react';
 import { authenticationParameters } from './auth-config';
 import { InteractionRequiredAuthError } from '@azure/msal-browser';
 import PowerBiShow from './PowerBiShow';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function PowerBi() {
   /// ... Other code
+  const [token, setToken] = useState('');
+
   const { instance, accounts, inProgress } = useMsal();
   const account = useAccount(accounts[0] || {});
-
+  
   useEffect(() => {
     if (inProgress === 'none' && accounts.length > 0) {
       // Retrieve an access token silently
@@ -22,6 +24,7 @@ function PowerBi() {
             // Do something with token
             // For example: getReport(response.accessToken);
             console.log(response.accessToken);
+            setToken(response.accessToken);
           }
           return null;
         })
@@ -42,7 +45,7 @@ function PowerBi() {
   }, [inProgress, accounts, instance]);
 
   // ...Return PowerBi embed
-  return <PowerBiShow />
+  return <PowerBiShow token = {token}/>
 }
 
 export default PowerBi
