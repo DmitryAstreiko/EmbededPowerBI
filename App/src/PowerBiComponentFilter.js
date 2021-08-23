@@ -5,8 +5,22 @@ import './PowerBI.css';
 
 //https://docs.microsoft.com/en-us/javascript/api/overview/powerbi/configure-report-settings
 
-export default class PowerBiComponent extends Component {
+export default class PowerBiComponentFilter extends Component {
     render() {
+
+        let filter1  = {
+            $schema: "http://powerbi.com/product/schema#advanced",
+            target: {
+                $schema: "http://powerbi.com/product/schema#column",
+                table: "Locations",
+                column: "City"
+            },
+            operator: "In",
+            values: ["Minsk"],
+            //filterType: models.FilterType.BasicFilter,
+            //requireSingleSelection: true
+          }
+
         return (
             <div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
@@ -14,28 +28,22 @@ export default class PowerBiComponent extends Component {
                         embedConfig={{
                             type: this.props.typeEmbed,   // Supported types: report, dashboard, tile, visual and qna
                             id: this.props.reportId,
-                            embedUrl: `https://app.powerbi.com/reportEmbed?reportId=${this.props.reportId}&groupId=${this.props.groupId}&w=2&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLVdFU1QtRVVST1BFLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0IiwiZW1iZWRGZWF0dXJlcyI6eyJtb2Rlcm5FbWJlZCI6dHJ1ZSwiY2VydGlmaWVkVGVsZW1ldHJ5RW1iZWQiOnRydWUsInVzYWdlTWV0cmljc1ZOZXh0Ijp0cnVlfX0%3d`,
+                            embedUrl: `https://app.powerbi.com/reportEmbed?reportId=${this.props.reportId}?filter=Locations/City eq 'Minsk'`,
                             accessToken: this.props.defaultToken,
                             tokenType: models.TokenType.Aad,
                             pageName: this.props.defaultPage,
                             settings: {
-                                panes: {
-                                    filters: {
-                                        expanded: false,
-                                        visible: false                                     
-                                      },
-                                    pageNavigation: {
-                                        visible: false
-                                    },
+                                panes: {                                    
+                                    //filters: [filter1],
+                                    }
                                 },
-                                background: models.BackgroundType.Transparent,
-                            }
+                                background: models.BackgroundType.Transparent,                        
                         }}
 
                         eventHandlers={
                             new Map([
-                                //['loaded', function () { console.log('Report loaded'); }],
-                                //['rendered', function () { console.log('Report rendered'); }],
+                                ['loaded', function () { console.log('Report loaded'); }],
+                                ['rendered', function () { console.log('Report rendered'); }],
                                 ['error', function (event) { console.log(`Error - ${event.detail}`); }]
                             ])
                         }

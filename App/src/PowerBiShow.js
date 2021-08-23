@@ -1,6 +1,7 @@
 import React from 'react';
 import PowerBiComponent from './PowerBiComponent';
 import PowerBiDashboardComponent from './PowerBiDashboardComponent';
+import PowerBiComponentFilter from './PowerBiComponentFilter';
 
 export default class PowerBiShow extends React.Component {    
     render() {
@@ -14,20 +15,31 @@ export default class PowerBiShow extends React.Component {
         const defaultPage4 = 'ReportSection0223ec3a88d60aabb10b';  //total lockers
         const defaultPage51 = 'ReportSection8ca12aece883999785ed';  //current summary 1
         const defaultPage52 = 'ReportSection4cd970dbedb275ab181b';  //current summary 2
+        const defaultPage6 = 'ReportSectionb19894274b7c8f3ac6de';
         //const defaultToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Im5PbzNaRHJPRFhFSzFqS1doWHNsSFJfS1hFZyIsImtpZCI6Im5PbzNaRHJPRFhFSzFqS1doWHNsSFJfS1hFZyJ9.eyJhdWQiOiJodHRwczovL2FuYWx5c2lzLndpbmRvd3MubmV0L3Bvd2VyYmkvYXBpIiwiaXNzIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvYjQxYjcyZDAtNGU5Zi00YzI2LThhNjktZjk0OWYzNjdjOTFkLyIsImlhdCI6MTYyOTQ0ODk5NSwibmJmIjoxNjI5NDQ4OTk1LCJleHAiOjE2Mjk0NTI4OTUsImFjY3QiOjAsImFjciI6IjEiLCJhaW8iOiJBVlFBcS84VEFBQUFaeXFLUHpvY25SQlNOTXpKKytjTmxTSEFNdFBaWUtYd3FVU2UyaFd6cVYwT2VzeXQ1ZmVhRTY5aS9hSDE3UUJuK2RQc2FMaWQrS09xY0xwRHpscnY3WGEvWVhXQXRjRnBWcDVjSlNlMmcxaz0iLCJhbXIiOlsicnNhIiwibWZhIl0sImFwcGlkIjoiODcxYzAxMGYtNWU2MS00ZmIxLTgzYWMtOTg2MTBhN2U5MTEwIiwiYXBwaWRhY3IiOiIyIiwiZGV2aWNlaWQiOiJmMWUwMGI5Ni1hOWY3LTQzYzEtOGEzZC04NmYwZmQ5MDU0ODMiLCJmYW1pbHlfbmFtZSI6IkFzdHJlaWthIiwiZ2l2ZW5fbmFtZSI6IkR6bWl0cnkiLCJpcGFkZHIiOiIzNy4yMTQuNTcuMjIyIiwibmFtZSI6IkR6bWl0cnkgQXN0cmVpa2EiLCJvaWQiOiJiZTg2NmQzNi1jNjAwLTQ4NjAtOWQ3Ni1lYTZlMGNiOTQzNGMiLCJvbnByZW1fc2lkIjoiUy0xLTUtMjEtNjM2MTU3NC0yOTMwODI0MjItMTMwMDc2MTgtMTMxNzk1IiwicHVpZCI6IjEwMDMyMDAxM0IyRjkyMDciLCJyaCI6IjAuQVFrQTBISWJ0SjlPSmt5S2FmbEo4MmZKSFE4QkhJZGhYckZQZzZ5WVlRcC1rUkFKQU5jLiIsInNjcCI6InVzZXJfaW1wZXJzb25hdGlvbiIsInN1YiI6Iml4TDRMYWJsOEdCNlJtZmVKUHhFNnQwTzdTYWhBMEl0T1ZOQm9BVXJZb28iLCJ0aWQiOiJiNDFiNzJkMC00ZTlmLTRjMjYtOGE2OS1mOTQ5ZjM2N2M5MWQiLCJ1bmlxdWVfbmFtZSI6IkR6bWl0cnlfQXN0cmVpa2FAZXBhbS5jb20iLCJ1cG4iOiJEem1pdHJ5X0FzdHJlaWthQGVwYW0uY29tIiwidXRpIjoiSmNWUUMyOWtBa212angzNi1EY21BQSIsInZlciI6IjEuMCIsIndpZHMiOlsiYjc5ZmJmNGQtM2VmOS00Njg5LTgxNDMtNzZiMTk0ZTg1NTA5Il19.gUD2g9bugGeuvY50IJDycxvmJ6yKIK6-79KjH9Lg70fnmxE5gPhs2hLe9RRSyPmDJpgmolcT7WtLyH5VXyyMMZe-_p_FKiFU1qLFDXNBxT1vsWCFlYa_Hs3uIz1oA-JnuYxkg5iiW2nPenOOSFFuTL3a3KyQj-mOEypwdTSSgYPLpUFBAUgKJQq7g8yFbSl2s4ORVt_iVmSggUkIPckTmMGTX5L1KE1qWIeUDlu_GaXR1c4dL3urS5xlDXUgdiGQfxRlEGBYwUyi_PSKOv-oyRDCeViqLSwAWaapr3ERhGpBfAkthSc87DXrOHfpXMWHHksnNT5S8LvscenPt0EBZw';
         const defaultToken = this.props.token;
         const DashboardId = '0fc89437-c8a4-46f2-8d73-1f5f1ef6a56c';
 
         return (
             <div>
-                <h1 style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>Reports</h1>                
+                <h1 style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>Reports</h1>   
+
+                <div style={{ height: "20px" }}></div>
+                <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
+                    <PowerBiComponentFilter reportId={reportId} groupId={groupId} typeEmbed={typeReportEmbed} 
+                        defaultPage={defaultPage6}
+                        defaultToken={defaultToken}>
+                    </PowerBiComponentFilter>
+                </div>
+
+                <div style={{ height: "20px" }}></div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
                     <PowerBiComponent reportId={reportId} groupId={groupId} typeEmbed={typeReportEmbed} 
-                        defaultPage={defaultPage51}
+                        defaultPage={defaultPage3}
                         defaultToken={defaultToken}>
                     </PowerBiComponent>
                 </div>
-                <div style={{ height: "20px" }}></div>
+                {/*<div style={{ height: "20px" }}></div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
                     <PowerBiComponent reportId={reportId} groupId={groupId} typeEmbed={typeReportEmbed} 
                         defaultPage={defaultPage1}
@@ -69,6 +81,7 @@ export default class PowerBiShow extends React.Component {
                         defaultToken={defaultToken}>
                     </PowerBiDashboardComponent>
                 </div>
+        */}
             </div>
         );
     }

@@ -27,8 +27,7 @@ export default class PowerBiDashboardComponent extends Component {
                                     },
                                     pageNavigation: {
                                         visible: false
-                                    }
-
+                                    },
                                 },
                                 background: models.BackgroundType.Transparent,
                             }
