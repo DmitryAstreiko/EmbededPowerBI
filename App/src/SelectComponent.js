@@ -9,19 +9,20 @@ import Select from '@material-ui/core/Select';
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
+    minWidth: 250,
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
 }));
 
-export default function SimpleSelect() {
+export default function SimpleSelect(props) {
   const classes = useStyles();
   const [city, setCity] = React.useState('');
 
   const handleChange = (event) => {
     setCity(event.target.value);
+    props.selectedCity(event.target.value);    
   };
 
   return (
@@ -33,9 +34,10 @@ export default function SimpleSelect() {
           id="demo-simple-select"
           value={city}
           onChange={handleChange}
+          //onChange={(event) => {setCity(event.target.value); props.selectedCity(event.target.value)}}
         >
           <MenuItem value={"Minsk"}>Minsk</MenuItem>
-          <MenuItem value={"Vilnus"}>Vilnus</MenuItem>
+          <MenuItem value={"Vilnius"}>Vilnius</MenuItem>
           <MenuItem value={"Lviv"}>Lviv</MenuItem>
         </Select>
       </FormControl>

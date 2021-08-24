@@ -6,10 +6,7 @@ import './PowerBI.css';
 //https://docs.microsoft.com/en-us/javascript/api/overview/powerbi/configure-report-settings
 
 export default class PowerBiComponentFilter extends Component {
-    render() {
-
-        
-
+    render() {      
         return (
             <div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
