@@ -2,6 +2,8 @@ import React from 'react';
 import PowerBiComponent from './PowerBiComponent';
 import PowerBiDashboardComponent from './PowerBiDashboardComponent';
 import PowerBiComponentFilter from './PowerBiComponentFilter';
+import { models } from 'powerbi-client';
+import SimpleSelect from './SelectComponent';
 
 export default class PowerBiShow extends React.Component {    
     render() {
@@ -20,15 +22,31 @@ export default class PowerBiShow extends React.Component {
         const defaultToken = this.props.token;
         const DashboardId = '0fc89437-c8a4-46f2-8d73-1f5f1ef6a56c';
 
+        const filterCity  = {
+            $schema: "http://powerbi.com/product/schema#basic",
+            target: {
+                $schema: "http://powerbi.com/product/schema#column",
+                table: "Locations",
+                column: "City"
+            },
+            operator: "In",
+            values: ["Minsk"],
+            filterType: models.FilterType.BasicFilter,
+            //requireSingleSelection: true
+          };
+
         return (
             <div>
                 <h1 style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>Reports</h1>   
-
+                <div>
+                    <SimpleSelect />
+                </div>
                 <div style={{ height: "20px" }}></div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
-                    <PowerBiComponentFilter reportId={reportId} groupId={groupId} typeEmbed={typeReportEmbed} 
-                        defaultPage={defaultPage6}
-                        defaultToken={defaultToken}>
+                    <PowerBiComponentFilter reportId = { reportId } groupId={groupId} typeEmbed={typeReportEmbed} 
+                        defaultPage = { defaultPage6 }
+                        defaultToken = { defaultToken }
+                        defaultFilter= { filterCity }>
                     </PowerBiComponentFilter>
                 </div>
 
@@ -83,6 +101,6 @@ export default class PowerBiShow extends React.Component {
                 </div>
         */}
             </div>
-        );
+        )
     }
 }

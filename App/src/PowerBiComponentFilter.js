@@ -8,18 +8,7 @@ import './PowerBI.css';
 export default class PowerBiComponentFilter extends Component {
     render() {
 
-        let filter1  = {
-            $schema: "http://powerbi.com/product/schema#advanced",
-            target: {
-                $schema: "http://powerbi.com/product/schema#column",
-                table: "Locations",
-                column: "City"
-            },
-            operator: "In",
-            values: ["Minsk"],
-            //filterType: models.FilterType.BasicFilter,
-            //requireSingleSelection: true
-          }
+        
 
         return (
             <div>
@@ -28,16 +17,24 @@ export default class PowerBiComponentFilter extends Component {
                         embedConfig={{
                             type: this.props.typeEmbed,   // Supported types: report, dashboard, tile, visual and qna
                             id: this.props.reportId,
-                            embedUrl: `https://app.powerbi.com/reportEmbed?reportId=${this.props.reportId}?filter=Locations/City eq 'Minsk'`,
+                            embedUrl: `https://app.powerbi.com/reportEmbed?reportId=${this.props.reportId}`,
                             accessToken: this.props.defaultToken,
                             tokenType: models.TokenType.Aad,
                             pageName: this.props.defaultPage,
+                            filters: [this.props.defaultFilter],
+                            
                             settings: {
                                 panes: {                                    
-                                    //filters: [filter1],
+                                    filters: {
+                                        expanded: false,
+                                        visible: false                                     
+                                      }, 
+                                    pageNavigation: {
+                                        visible: false
+                                    },                              
                                     }
                                 },
-                                background: models.BackgroundType.Transparent,                        
+                            background: models.BackgroundType.Transparent,                        
                         }}
 
                         eventHandlers={
