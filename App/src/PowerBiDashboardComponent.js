@@ -49,6 +49,6 @@ export default class PowerBiDashboardComponent extends Component {
                     />
                 </div>
             </div>
-        );
+        )
     }
 }

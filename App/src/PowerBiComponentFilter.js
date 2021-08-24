@@ -50,6 +50,6 @@ export default class PowerBiComponentFilter extends Component {
                     />
                 </div>
             </div>
-        );
+        )
     }
 }

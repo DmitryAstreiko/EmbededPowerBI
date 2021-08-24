@@ -33,8 +33,6 @@ onChangeCity(newCity) {
         const defaultToken = this.props.token;
         const DashboardId = '0fc89437-c8a4-46f2-8d73-1f5f1ef6a56c';
 
-       console.log(this.state.valuesCity);
-
         const filterCity  = {
             $schema: "http://powerbi.com/product/schema#basic",
             target: {
@@ -106,14 +104,15 @@ onChangeCity(newCity) {
                         defaultToken={defaultToken}>
                     </PowerBiComponent>
                 </div>
-
+            */}
                 <h1 style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>Dashboards</h1>
+                <div style={{ height: "20px" }}></div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
                     <PowerBiDashboardComponent reportId={DashboardId} typeEmbed={typeDashboardEmbed} 
                         defaultToken={defaultToken}>
                     </PowerBiDashboardComponent>
                 </div>
-        */}
+        
             </div>
         )
     }
