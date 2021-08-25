@@ -18,7 +18,7 @@ export default class PowerBiComponentFilter extends Component {
                             accessToken: this.props.defaultToken,
                             tokenType: models.TokenType.Aad,
                             pageName: this.props.defaultPage,
-                            filters: [this.props.defaultFilter],
+                            filters: this.props.defaultFilter,
                             
                             settings: {
                                 panes: {                                    

@@ -17,7 +17,7 @@ export default class PowerBiShow extends React.Component {
             valuesCity: null,
             selectedFirstDate: moment(new Date()).format('YYYY-MM-DD'),
             selectedEndDate: moment(new Date()).format('YYYY-MM-DD'),
-            daysCountPeriod: 1,
+            daysCountPeriod: 180,
         }
     };
 
@@ -27,25 +27,15 @@ onChangeCity(newCity) {
 
 onDateStartSelect = value => {
     this.setState({ selectedFirstDate: moment(value).format('YYYY-MM-DD') });
-    this.diffDatesPeriod();
 };
 
 onDateEndSelect = value => {
     this.setState({ selectedEndDate: moment(value).format('YYYY-MM-DD') });
-    this.diffDatesPeriod();
 };
 
-diffDatesPeriod() {
-    const startDate = moment(this.state.selectedFirstDate);
-    const timeEnd = moment(this.state.selectedEndDate);
-    const diff = timeEnd.diff(startDate);
-    const diffDuration = moment.duration(diff);
-
-    //let diffDates = this.state.selectedEndDate - this.state.selectedFirstDate;
-    console.log(`diff = ${diff}, diffDuration = ${diffDuration.days}`);
-}
-
     render() {
+        //https://docs.microsoft.com/en-us/javascript/api/overview/powerbi/control-report-filters
+
         const reportId = '162ae399-1e14-4332-a519-746c57a3fd22';
         const groupId = '5d4e1aaf-dd67-47f1-9f66-392bd5be5803';
         const typeReportEmbed = 'report';
@@ -73,7 +63,12 @@ diffDatesPeriod() {
             
             filterType: models.FilterType.BasicFilter,
             //requireSingleSelection: true
-          };
+            };
+
+            const date1 = moment(new Date(2021, 2, 15)).format("M/DD/yyyy");
+            const date2 = moment(new Date(2021, 6, 15)).format("M/DD/yyyy");
+            console.log(date1);
+            console.log(date2);
 
           const filterBookingDatePeriod  = {
             $schema: "http://powerbi.com/product/schema#advanced",
@@ -81,19 +76,20 @@ diffDatesPeriod() {
                 table: "VersionsForOpenings",
                 column: "CreateDateAt"
             },
-            logicalOperator: "And",
+            logicalOperator: "Or",
             conditions: [
               {
-                operator: "GreaterThanOrEqual",
-                value: "1/15/2021"
+                operator: "GreaterThan",
+                //value: "1/15/2021"
+                value: moment(new Date(2021, 2, 15))
               },
-              {
-                operator: "LessThanOrEqual",
-                value: "8/11/2021"
-              }
+            //  {
+            //    operator: "Contains",
+            //    value: "Lviv"
+            //  }
             ],
-            filterType: models.FilterType.AdvancedFilterrelativeDateFilter
-          };
+            filterType: models.FilterType.AdvancedFilter
+            };
 
           //----------временные рамки работают с текущей датой (вперед и назад)--------------
           const RelativeDateFilterTimeUnit = {
@@ -106,20 +102,20 @@ diffDatesPeriod() {
             CalendarYears: 6,
             Minutes: 7,
             Hours: 8
-        }
+            };
 
           const relativeDateFilter = {
             $schema: "http://powerbi.com/product/schema#relativeDate",
             target: {
-              table: "VersionsForOpenings",
-              column: "CreateDateAt"
+                table: "VersionsForOpenings",
+                column: "CreateDateAt"
             },
             operator: models.RelativeDateOperators.InLast,
             timeUnitsCount: this.state.daysCountPeriod,
             timeUnitType: RelativeDateFilterTimeUnit.Days,
             includeToday: true,
             filterType: models.FilterType.RelativeDate
-          };
+            };
           //---------------------------------------------------------------------------------------------
 
         return (
@@ -145,9 +141,10 @@ diffDatesPeriod() {
                     <PowerBiComponentFilter reportId = { reportId } groupId={groupId} typeEmbed={typeReportEmbed} 
                         defaultPage = { defaultPage6 }
                         defaultToken = { defaultToken }
-                        //defaultFilter= { filterCity }
-                        defaultFilter= { filterBookingDatePeriod } 
-                        //defaultFilter = { relativeDateFilter }
+                        //defaultFilter= { [ filterCity ] }
+                        defaultFilter= { [ filterBookingDatePeriod ] } 
+                        //defaultFilter = { [ relativeDateFilter ] }
+                        //defaultFilter = { [ relativeDateFilter, filterCity ] }  //применение нескольких фильтров
                         >   
                     </PowerBiComponentFilter>
                 </div>
