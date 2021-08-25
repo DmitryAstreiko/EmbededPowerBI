@@ -7,6 +7,7 @@ import SimpleSelect from './SelectComponent';
 //import DataPickerComponent from './DataPickerComponent';
 import PickerComponent from './PickerComponent';
 import * as moment  from 'moment';
+import { addDays } from 'date-fns';
 
 export default class PowerBiShow extends React.Component {    
     constructor(props) {
@@ -15,6 +16,8 @@ export default class PowerBiShow extends React.Component {
         this.state = {
             valuesCity: null,
             selectedFirstDate: moment(new Date()).format('YYYY-MM-DD'),
+            selectedEndDate: moment(new Date()).format('YYYY-MM-DD'),
+            daysCountPeriod: 1,
         }
     };
 
@@ -23,8 +26,24 @@ onChangeCity(newCity) {
 };
 
 onDateStartSelect = value => {
-    this.setState({ selectedFirstDate: moment(value).format('YYYY-MM-DD') })
+    this.setState({ selectedFirstDate: moment(value).format('YYYY-MM-DD') });
+    this.diffDatesPeriod();
 };
+
+onDateEndSelect = value => {
+    this.setState({ selectedEndDate: moment(value).format('YYYY-MM-DD') });
+    this.diffDatesPeriod();
+};
+
+diffDatesPeriod() {
+    const startDate = moment(this.state.selectedFirstDate);
+    const timeEnd = moment(this.state.selectedEndDate);
+    const diff = timeEnd.diff(startDate);
+    const diffDuration = moment.duration(diff);
+
+    //let diffDates = this.state.selectedEndDate - this.state.selectedFirstDate;
+    console.log(`diff = ${diff}, diffDuration = ${diffDuration.days}`);
+}
 
     render() {
         const reportId = '162ae399-1e14-4332-a519-746c57a3fd22';
@@ -56,17 +75,69 @@ onDateStartSelect = value => {
             //requireSingleSelection: true
           };
 
+          const filterBookingDatePeriod  = {
+            $schema: "http://powerbi.com/product/schema#advanced",
+            target: {
+                table: "VersionsForOpenings",
+                column: "CreateDateAt"
+            },
+            logicalOperator: "And",
+            conditions: [
+              {
+                operator: "GreaterThanOrEqual",
+                value: "1/15/2021"
+              },
+              {
+                operator: "LessThanOrEqual",
+                value: "8/11/2021"
+              }
+            ],
+            filterType: models.FilterType.AdvancedFilterrelativeDateFilter
+          };
+
+          //----------временные рамки работают с текущей датой (вперед и назад)--------------
+          const RelativeDateFilterTimeUnit = {
+            Days: 0,
+            Weeks: 1,
+            CalendarWeeks: 2,
+            Months: 3,
+            CalendarMonths: 4,
+            Years: 5,
+            CalendarYears: 6,
+            Minutes: 7,
+            Hours: 8
+        }
+
+          const relativeDateFilter = {
+            $schema: "http://powerbi.com/product/schema#relativeDate",
+            target: {
+              table: "VersionsForOpenings",
+              column: "CreateDateAt"
+            },
+            operator: models.RelativeDateOperators.InLast,
+            timeUnitsCount: this.state.daysCountPeriod,
+            timeUnitType: RelativeDateFilterTimeUnit.Days,
+            includeToday: true,
+            filterType: models.FilterType.RelativeDate
+          };
+          //---------------------------------------------------------------------------------------------
+
         return (
             <div>
                 <h1 style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>Reports</h1>   
-                <div className={"d-flex justify-content-around"} style={{ marginBottom: "20px" }}>
+                <div  style={{ marginBottom: "20px" }}>
                     <div>
                         <SimpleSelect selectedCity = { (value) => this.onChangeCity(value) }/>
                     </div>
-                    <div>
+                    <div  >
                         <PickerComponent labelvalue={"Дата с"} 
                             onSelected={ (value) => this.onDateStartSelect(value) } 
                             selectedDate={this.state.selectedFirstDate}/>
+                    </div>
+                    <div  >
+                        <PickerComponent labelvalue={"Дата по"} 
+                            onSelected={ (value) => this.onDateEndSelect(value) } 
+                            selectedDate={this.state.selectedEndDate}/>
                     </div>
                 </div>
                 <div style={{ height: "20px" }}></div>
@@ -74,7 +145,10 @@ onDateStartSelect = value => {
                     <PowerBiComponentFilter reportId = { reportId } groupId={groupId} typeEmbed={typeReportEmbed} 
                         defaultPage = { defaultPage6 }
                         defaultToken = { defaultToken }
-                        defaultFilter= { filterCity }>   
+                        //defaultFilter= { filterCity }
+                        defaultFilter= { filterBookingDatePeriod } 
+                        //defaultFilter = { relativeDateFilter }
+                        >   
                     </PowerBiComponentFilter>
                 </div>
 
