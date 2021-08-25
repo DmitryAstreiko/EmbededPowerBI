@@ -4,6 +4,9 @@ import PowerBiDashboardComponent from './PowerBiDashboardComponent';
 import PowerBiComponentFilter from './PowerBiComponentFilter';
 import { models } from 'powerbi-client';
 import SimpleSelect from './SelectComponent';
+//import DataPickerComponent from './DataPickerComponent';
+import PickerComponent from './PickerComponent';
+import * as moment  from 'moment';
 
 export default class PowerBiShow extends React.Component {    
     constructor(props) {
@@ -11,12 +14,17 @@ export default class PowerBiShow extends React.Component {
 
         this.state = {
             valuesCity: null,
+            selectedFirstDate: moment(new Date()).format('YYYY-MM-DD'),
         }
     };
 
 onChangeCity(newCity) {
     this.setState({ valuesCity: newCity });
-}
+};
+
+onDateStartSelect = value => {
+    this.setState({ selectedFirstDate: moment(value).format('YYYY-MM-DD') })
+};
 
     render() {
         const reportId = '162ae399-1e14-4332-a519-746c57a3fd22';
@@ -43,6 +51,7 @@ onChangeCity(newCity) {
             operator: "In",
             //values: ["Minsk"],
             values: [this.state.valuesCity],
+            
             filterType: models.FilterType.BasicFilter,
             //requireSingleSelection: true
           };
@@ -50,8 +59,15 @@ onChangeCity(newCity) {
         return (
             <div>
                 <h1 style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>Reports</h1>   
-                <div>
-                    <SimpleSelect selectedCity = { (value) => this.onChangeCity(value) }/>
+                <div className={"d-flex justify-content-around"} style={{ marginBottom: "20px" }}>
+                    <div>
+                        <SimpleSelect selectedCity = { (value) => this.onChangeCity(value) }/>
+                    </div>
+                    <div>
+                        <PickerComponent labelvalue={"Дата с"} 
+                            onSelected={ (value) => this.onDateStartSelect(value) } 
+                            selectedDate={this.state.selectedFirstDate}/>
+                    </div>
                 </div>
                 <div style={{ height: "20px" }}></div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
