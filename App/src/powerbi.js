@@ -23,7 +23,6 @@ function PowerBi() {
           if (response.accessToken) {
             // Do something with token
             // For example: getReport(response.accessToken);
-            console.log(response.accessToken);
             setToken(response.accessToken);
           }
           return null;
@@ -31,7 +30,6 @@ function PowerBi() {
         .catch((err) => {
           if (err instanceof InteractionRequiredAuthError) {
             // If interaction is needed then login using redirect.
-            console.log("using login redirect");
             instance.loginRedirect(authenticationParameters);
           }
         });
@@ -39,7 +37,6 @@ function PowerBi() {
 
     // If user is not signed in then login using redirect method
     if (accounts.length === 0 && inProgress === 'none') {
-      console.log("need sign in");
       instance.loginRedirect(authenticationParameters);
     }
   }, [inProgress, accounts, instance]);

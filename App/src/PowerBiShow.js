@@ -7,6 +7,8 @@ import SimpleSelect from './SelectComponent';
 //import DataPickerComponent from './DataPickerComponent';
 import PickerComponent from './PickerComponent';
 import * as moment  from 'moment';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 export default class PowerBiShow extends React.Component {    
     constructor(props) {
@@ -45,7 +47,8 @@ onDateEndSelect = value => {
         const defaultPage4 = 'ReportSection0223ec3a88d60aabb10b';  //total lockers
         const defaultPage51 = 'ReportSection8ca12aece883999785ed';  //current summary 1
         const defaultPage52 = 'ReportSection4cd970dbedb275ab181b';  //current summary 2
-        const defaultPage6 = 'ReportSectionb19894274b7c8f3ac6de';
+        const defaultPage6 = 'ReportSectionb19894274b7c8f3ac6de';  //test 1
+        const defaultPage7 = 'ReportSectione0f670f2537e3e56e0a5';  //test 2
         const defaultToken = this.props.token;
         const DashboardId = '0fc89437-c8a4-46f2-8d73-1f5f1ef6a56c';
 
@@ -113,31 +116,48 @@ onDateEndSelect = value => {
 
         return (
             <div>
-                <h1 style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>Reports</h1>   
-                <div  style={{ marginBottom: "20px" }}>
+                <h1 style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>Reports</h1> 
+
+                <h2 style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>Using dates and cities</h2>
+
+                <div className={"d-flex justify-content-around"}>
                     <div>
                         <SimpleSelect selectedCity = { (value) => this.onChangeCity(value) }/>
                     </div>
-                    <div  >
+                    <div>
                         <PickerComponent labelvalue={"Дата с"} 
                             onSelected={ (value) => this.onDateStartSelect(value) } 
                             selectedDate={this.state.selectedFirstDate}/>
                     </div>
-                    <div  >
+                    <div>
                         <PickerComponent labelvalue={"Дата по"} 
                             onSelected={ (value) => this.onDateEndSelect(value) } 
                             selectedDate={this.state.selectedEndDate}/>
                     </div>
                 </div>
+
+                <div style={{ height: "20px" }}></div>
+                <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
+                    <PowerBiComponentFilter reportId = { reportId } groupId={groupId} typeEmbed={typeReportEmbed} 
+                        defaultPage = { defaultPage7 }
+                        defaultToken = { defaultToken }
+                        //defaultFilter= { [ filterCity ] }
+                        //defaultFilter= { [ filterBookingDatePeriod ] } 
+                        //defaultFilter = { [ relativeDateFilter ] }
+                        defaultFilter = { [ filterBookingDatePeriod, filterCity ] }  //применение нескольких фильтров
+                        >   
+                    </PowerBiComponentFilter>
+                </div>
+
                 <div style={{ height: "20px" }}></div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
                     <PowerBiComponentFilter reportId = { reportId } groupId={groupId} typeEmbed={typeReportEmbed} 
                         defaultPage = { defaultPage6 }
                         defaultToken = { defaultToken }
                         //defaultFilter= { [ filterCity ] }
-                        defaultFilter= { [ filterBookingDatePeriod ] } 
+                        //defaultFilter= { [ filterBookingDatePeriod ] } 
                         //defaultFilter = { [ relativeDateFilter ] }
-                        //defaultFilter = { [ relativeDateFilter, filterCity ] }  //применение нескольких фильтров
+                        defaultFilter = { [ filterBookingDatePeriod, filterCity ] }  //применение нескольких фильтров
                         >   
                     </PowerBiComponentFilter>
                 </div>
@@ -149,13 +169,56 @@ onDateEndSelect = value => {
                         defaultToken={defaultToken}>
                     </PowerBiComponent>
                 </div>
-                {/*<div style={{ height: "20px" }}></div>
+
+                <h2 style={{ display: "flex", alignItems: "center" }}>Using count days in last</h2>
+                <div className={"d-flex justify-content-around"} style={{ marginTop: "20px" }}>
+                    <TextField 
+                        id="standard-number"
+                        label="Count days"
+                        type="number"
+                        value = {this.state.daysCountPeriod}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}>
+                    </TextField>
+                </div>
+                
+                <div style={{ height: "20px" }}></div>
+                <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
+                    <PowerBiComponentFilter reportId = { reportId } groupId={groupId} typeEmbed={typeReportEmbed} 
+                        defaultPage = { defaultPage7 }
+                        defaultToken = { defaultToken }
+                        //defaultFilter= { [ filterCity ] }
+                        //defaultFilter= { [ filterBookingDatePeriod ] } 
+                        defaultFilter = { [ relativeDateFilter ] }
+                        //defaultFilter = { [ filterBookingDatePeriod, filterCity ] }  //применение нескольких фильтров
+                        >   
+                    </PowerBiComponentFilter>
+                </div>
+
+                <div style={{ height: "20px" }}></div>
+                <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
+                    <PowerBiComponentFilter reportId = { reportId } groupId={groupId} typeEmbed={typeReportEmbed} 
+                        defaultPage = { defaultPage6 }
+                        defaultToken = { defaultToken }
+                        //defaultFilter= { [ filterCity ] }
+                        //defaultFilter= { [ filterBookingDatePeriod ] } 
+                        defaultFilter = { [ relativeDateFilter ] }
+                        //defaultFilter = { [ filterBookingDatePeriod, filterCity ] }  //применение нескольких фильтров
+                        >   
+                    </PowerBiComponentFilter>
+                </div>
+
+                <h2 style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>Other reports</h2>
+
+                <div style={{ height: "20px" }}></div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
                     <PowerBiComponent reportId={reportId} groupId={groupId} typeEmbed={typeReportEmbed} 
                         defaultPage={defaultPage1}
                         defaultToken={defaultToken}>
                     </PowerBiComponent>
-                </div>
+                </div>                
+
                 <div style={{ height: "20px" }}></div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
                     <PowerBiComponent reportId={reportId} groupId={groupId} typeEmbed={typeReportEmbed} 
@@ -163,6 +226,7 @@ onDateEndSelect = value => {
                         defaultToken={defaultToken}>
                     </PowerBiComponent>
                 </div>
+
                 <div style={{ height: "20px" }}></div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
                     <PowerBiComponent reportId={reportId} groupId={groupId} typeEmbed={typeReportEmbed} 
@@ -170,13 +234,23 @@ onDateEndSelect = value => {
                         defaultToken={defaultToken}>
                     </PowerBiComponent>
                 </div>
-                <div style={{ height: "20px" }}></div>
+
+                {/*<div style={{ height: "20px" }}></div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
                     <PowerBiComponent reportId={reportId} groupId={groupId} typeEmbed={typeReportEmbed} 
                         defaultPage={defaultPage4}
                         defaultToken={defaultToken}>
                     </PowerBiComponent>
-                </div>                
+                </div>  
+                */}    
+
+                <div style={{ height: "20px" }}></div>
+                <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
+                    <PowerBiComponent reportId={reportId} groupId={groupId} typeEmbed={typeReportEmbed} 
+                        defaultPage={defaultPage51}
+                        defaultToken={defaultToken}>
+                    </PowerBiComponent>
+                </div>
                 <div style={{ height: "20px" }}></div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
                     <PowerBiComponent reportId={reportId} groupId={groupId} typeEmbed={typeReportEmbed} 
@@ -185,6 +259,7 @@ onDateEndSelect = value => {
                     </PowerBiComponent>
                 </div>
             
+
                 <h1 style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>Dashboards</h1>
                 <div style={{ height: "20px" }}></div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
@@ -192,7 +267,7 @@ onDateEndSelect = value => {
                         defaultToken={defaultToken}>
                     </PowerBiDashboardComponent>
                 </div>
-        */}
+       
             </div>
         )
     }

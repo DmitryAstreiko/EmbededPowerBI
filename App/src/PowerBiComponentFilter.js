@@ -24,7 +24,7 @@ export default class PowerBiComponentFilter extends Component {
                                 panes: {                                    
                                     filters: {
                                         expanded: false,
-                                        visible: true                                     
+                                        visible: false                                     
                                       }, 
                                     pageNavigation: {
                                         visible: false
