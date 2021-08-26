@@ -7,7 +7,6 @@ import SimpleSelect from './SelectComponent';
 //import DataPickerComponent from './DataPickerComponent';
 import PickerComponent from './PickerComponent';
 import * as moment  from 'moment';
-import { addDays } from 'date-fns';
 
 export default class PowerBiShow extends React.Component {    
     constructor(props) {
@@ -15,7 +14,7 @@ export default class PowerBiShow extends React.Component {
 
         this.state = {
             valuesCity: null,
-            selectedFirstDate: moment(new Date()).format('YYYY-MM-DD'),
+            selectedFirstDate: moment(new Date(2021, 1, 1)).format('YYYY-MM-DD'),
             selectedEndDate: moment(new Date()).format('YYYY-MM-DD'),
             daysCountPeriod: 180,
         }
@@ -65,28 +64,22 @@ onDateEndSelect = value => {
             //requireSingleSelection: true
             };
 
-            const date1 = moment(new Date(2021, 2, 15)).format("M/DD/yyyy");
-            const date2 = moment(new Date(2021, 6, 15)).format("M/DD/yyyy");
-            console.log(date1);
-            console.log(date2);
-
           const filterBookingDatePeriod  = {
             $schema: "http://powerbi.com/product/schema#advanced",
             target: {
                 table: "VersionsForOpenings",
                 column: "CreateDateAt"
             },
-            logicalOperator: "Or",
+            logicalOperator: "And", //use "And" if exits only one condition 
             conditions: [
               {
-                operator: "GreaterThan",
-                //value: "1/15/2021"
-                value: moment(new Date(2021, 2, 15))
+                operator: "GreaterThanOrEqual",
+                value: moment(this.state.selectedFirstDate).toISOString()
               },
-            //  {
-            //    operator: "Contains",
-            //    value: "Lviv"
-            //  }
+              {
+                operator: "LessThanOrEqual",
+                value: moment(this.state.selectedEndDate).toISOString()
+              }
             ],
             filterType: models.FilterType.AdvancedFilter
             };
@@ -191,7 +184,7 @@ onDateEndSelect = value => {
                         defaultToken={defaultToken}>
                     </PowerBiComponent>
                 </div>
-            */}
+            
                 <h1 style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>Dashboards</h1>
                 <div style={{ height: "20px" }}></div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
@@ -199,7 +192,7 @@ onDateEndSelect = value => {
                         defaultToken={defaultToken}>
                     </PowerBiDashboardComponent>
                 </div>
-        
+        */}
             </div>
         )
     }
