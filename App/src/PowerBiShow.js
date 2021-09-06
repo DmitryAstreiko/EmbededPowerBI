@@ -9,6 +9,7 @@ import PickerComponent from './PickerComponent';
 import * as moment  from 'moment';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import PowerBiDashboardComponentFilter from './PowerBiDashboardComponentFilter';
 
 export default class PowerBiShow extends React.Component {    
     constructor(props) {
@@ -137,6 +138,15 @@ onDateEndSelect = value => {
                 </div>
 
                 <div style={{ height: "20px" }}></div>
+                <div style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
+                    <PowerBiDashboardComponentFilter reportId={DashboardId} typeEmbed={typeDashboardEmbed} 
+                        defaultToken={defaultToken}
+                        defaultFilter = { [ filterBookingDatePeriod ] }  //применение нескольких фильтров
+                        >
+                    </PowerBiDashboardComponentFilter>
+                </div>
+
+                <div style={{ height: "20px" }}></div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
                     <PowerBiComponentFilter reportId = { reportId } groupId={groupId} typeEmbed={typeReportEmbed} 
                         defaultPage = { defaultPage7 }
@@ -147,7 +157,7 @@ onDateEndSelect = value => {
                         defaultFilter = { [ filterBookingDatePeriod, filterCity ] }  //применение нескольких фильтров
                         >   
                     </PowerBiComponentFilter>
-                </div>
+                </div>                
 
                 <div style={{ height: "20px" }}></div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
