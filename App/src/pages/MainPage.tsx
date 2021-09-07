@@ -3,8 +3,7 @@ import css from './MainPage.module.scss';
 import { Panel, RichTextView, IconContainer } from '@epam/loveship';
 import { ReactComponent as UuiPromoImage } from '../icons/uui-promo-image.svg';
 
-
-export class MainPage extends React.Component {
+export class MainPage extends React.Component {    
     render() {
         return (
             <>
@@ -13,6 +12,8 @@ export class MainPage extends React.Component {
                         <IconContainer icon={ UuiPromoImage } />
                     </div>
                 </div>
+
+                <div style={{ height: "120px" }}></div>
                 <Panel cx={ css.mainPanel } background='white'>
                     <RichTextView size="14">
                         <h3>Welcome to UUI template app</h3>
