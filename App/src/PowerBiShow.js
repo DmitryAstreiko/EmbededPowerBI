@@ -4,12 +4,9 @@ import PowerBiDashboardComponent from './PowerBiDashboardComponent';
 import PowerBiComponentFilter from './PowerBiComponentFilter';
 import { models } from 'powerbi-client';
 import SimpleSelect from './SelectComponent';
-//import DataPickerComponent from './DataPickerComponent';
 import PickerComponent from './PickerComponent';
 import * as moment  from 'moment';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import PowerBiDashboardComponentFilter from './PowerBiDashboardComponentFilter';
 
 export default class PowerBiShow extends React.Component {    
     constructor(props) {
@@ -88,7 +85,7 @@ onDateEndSelect = value => {
             filterType: models.FilterType.AdvancedFilter
             };
 
-          //----------временные рамки работают с текущей датой (вперед и назад)--------------
+          //----------duration dates work with current date (forward, back)--------------
           const RelativeDateFilterTimeUnit = {
             Days: 0,
             Weeks: 1,
@@ -138,23 +135,12 @@ onDateEndSelect = value => {
                 </div>
 
                 <div style={{ height: "20px" }}></div>
-                <div style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
-                    <PowerBiDashboardComponentFilter reportId={DashboardId} typeEmbed={typeDashboardEmbed} 
-                        defaultToken={defaultToken}
-                        defaultFilter = { [ filterBookingDatePeriod ] }  //применение нескольких фильтров
-                        >
-                    </PowerBiDashboardComponentFilter>
-                </div>
-
-                <div style={{ height: "20px" }}></div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
                     <PowerBiComponentFilter reportId = { reportId } groupId={groupId} typeEmbed={typeReportEmbed} 
                         defaultPage = { defaultPage7 }
                         defaultToken = { defaultToken }
-                        //defaultFilter= { [ filterCity ] }
-                        //defaultFilter= { [ filterBookingDatePeriod ] } 
                         //defaultFilter = { [ relativeDateFilter ] }
-                        defaultFilter = { [ filterBookingDatePeriod, filterCity ] }  //применение нескольких фильтров
+                        defaultFilter = { [ filterBookingDatePeriod, filterCity ] }  //using filters - array 
                         >   
                     </PowerBiComponentFilter>
                 </div>                
@@ -164,10 +150,8 @@ onDateEndSelect = value => {
                     <PowerBiComponentFilter reportId = { reportId } groupId={groupId} typeEmbed={typeReportEmbed} 
                         defaultPage = { defaultPage6 }
                         defaultToken = { defaultToken }
-                        //defaultFilter= { [ filterCity ] }
-                        //defaultFilter= { [ filterBookingDatePeriod ] } 
                         //defaultFilter = { [ relativeDateFilter ] }
-                        defaultFilter = { [ filterBookingDatePeriod, filterCity ] }  //применение нескольких фильтров
+                        defaultFilter = { [ filterBookingDatePeriod, filterCity ] }  //using filters - array 
                         >   
                     </PowerBiComponentFilter>
                 </div>
@@ -198,10 +182,7 @@ onDateEndSelect = value => {
                     <PowerBiComponentFilter reportId = { reportId } groupId={groupId} typeEmbed={typeReportEmbed} 
                         defaultPage = { defaultPage7 }
                         defaultToken = { defaultToken }
-                        //defaultFilter= { [ filterCity ] }
-                        //defaultFilter= { [ filterBookingDatePeriod ] } 
                         defaultFilter = { [ relativeDateFilter ] }
-                        //defaultFilter = { [ filterBookingDatePeriod, filterCity ] }  //применение нескольких фильтров
                         >   
                     </PowerBiComponentFilter>
                 </div>
@@ -211,15 +192,12 @@ onDateEndSelect = value => {
                     <PowerBiComponentFilter reportId = { reportId } groupId={groupId} typeEmbed={typeReportEmbed} 
                         defaultPage = { defaultPage6 }
                         defaultToken = { defaultToken }
-                        //defaultFilter= { [ filterCity ] }
-                        //defaultFilter= { [ filterBookingDatePeriod ] } 
                         defaultFilter = { [ relativeDateFilter ] }
-                        //defaultFilter = { [ filterBookingDatePeriod, filterCity ] }  //применение нескольких фильтров
                         >   
                     </PowerBiComponentFilter>
                 </div>
 
-                <h2 style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>Other reports</h2>
+                <h2 style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>Reports without filters</h2>
 
                 <div style={{ height: "20px" }}></div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
@@ -245,14 +223,13 @@ onDateEndSelect = value => {
                     </PowerBiComponent>
                 </div>
 
-                {/*<div style={{ height: "20px" }}></div>
+                <div style={{ height: "20px" }}></div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
                     <PowerBiComponent reportId={reportId} groupId={groupId} typeEmbed={typeReportEmbed} 
                         defaultPage={defaultPage4}
                         defaultToken={defaultToken}>
                     </PowerBiComponent>
-                </div>  
-                */}    
+                </div>                  
 
                 <div style={{ height: "20px" }}></div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
@@ -267,10 +244,9 @@ onDateEndSelect = value => {
                         defaultPage={defaultPage52}
                         defaultToken={defaultToken}>
                     </PowerBiComponent>
-                </div>
-            
+                </div>            
 
-                <h1 style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>Dashboards</h1>
+                <h1 style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>Dashboard</h1>
                 <div style={{ height: "20px" }}></div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
                     <PowerBiDashboardComponent reportId={DashboardId} typeEmbed={typeDashboardEmbed} 

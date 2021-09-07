@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { PowerBIEmbed } from 'powerbi-client-react';
 import { models } from 'powerbi-client';
-//import "./App.css";
-
 
 //https://docs.microsoft.com/en-us/javascript/api/overview/powerbi/configure-report-settings
 
@@ -35,9 +33,9 @@ export default class PowerBiDashboardComponent extends Component {
 
                         eventHandlers={
                             new Map([
-                                ['loaded', function () { console.log('Report loaded'); }],
-                                ['rendered', function () { console.log('Report rendered'); }],
-                                ['error', function (event) { console.log(event.detail); }]
+                                //['loaded', function () { console.log('Report loaded'); }],
+                                //['rendered', function () { console.log('Report rendered'); }],
+                                //['error', function (event) { console.log(event.detail); }]
                             ])
                         }
 
