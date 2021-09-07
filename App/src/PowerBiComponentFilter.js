@@ -5,8 +5,8 @@ import './PowerBI.css';
 
 //https://docs.microsoft.com/en-us/javascript/api/overview/powerbi/configure-report-settings
 
-export default class PowerBiComponent extends Component {
-    render() {
+export default class PowerBiComponentFilter extends Component {
+    render() {      
         return (
             <div>
                 <div style={{ display: "flex", alignItems: "center", flexDirection: 'column' }}>
@@ -14,22 +14,24 @@ export default class PowerBiComponent extends Component {
                         embedConfig={{
                             type: this.props.typeEmbed,   // Supported types: report, dashboard, tile, visual and qna
                             id: this.props.reportId,
-                            embedUrl: `https://app.powerbi.com/reportEmbed?reportId=${this.props.reportId}&groupId=${this.props.groupId}&w=2&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLVdFU1QtRVVST1BFLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0IiwiZW1iZWRGZWF0dXJlcyI6eyJtb2Rlcm5FbWJlZCI6dHJ1ZSwiY2VydGlmaWVkVGVsZW1ldHJ5RW1iZWQiOnRydWUsInVzYWdlTWV0cmljc1ZOZXh0Ijp0cnVlfX0%3d`,
+                            embedUrl: `https://app.powerbi.com/reportEmbed?reportId=${this.props.reportId}`,
                             accessToken: this.props.defaultToken,
                             tokenType: models.TokenType.Aad,
                             pageName: this.props.defaultPage,
+                            filters: this.props.defaultFilter,
+                            
                             settings: {
-                                panes: {
+                                panes: {                                    
                                     filters: {
                                         expanded: false,
                                         visible: false                                     
-                                      },
+                                      }, 
                                     pageNavigation: {
                                         visible: false
-                                    },
+                                    },                              
+                                    }
                                 },
-                                background: models.BackgroundType.Transparent,
-                            }
+                            background: models.BackgroundType.Transparent,                        
                         }}
 
                         eventHandlers={
@@ -48,6 +50,6 @@ export default class PowerBiComponent extends Component {
                     />
                 </div>
             </div>
-        );
+        )
     }
 }
